@@ -2,7 +2,7 @@
   "name": "carshare",
   "version": "1.0.0",
   "description": "An application that help to connect users and drivers",
-  "main": "./app/server.js",
+  "main": "server.js",
   "scripts": {
     "test": "npm test",
     "start": "node server.js"
