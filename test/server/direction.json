@@ -1,0 +1,112 @@
+{
+    "status": 200,
+    "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "date": "Mon, 01 Apr 2019 18:11:00 GMT",
+        "expires": "Tue, 02 Apr 2019 18:11:00 GMT",
+        "cache-control": "public, max-age=86400",
+        "server": "mafe",
+        "x-xss-protection": "1; mode=block",
+        "x-frame-options": "SAMEORIGIN",
+        "server-timing": "gfet4t7; dur=236",
+        "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"",
+        "accept-ranges": "none",
+        "vary": "Accept-Language,Accept-Encoding",
+        "connection": "close"
+    },
+    "json": {
+        "geocoded_waypoints": [
+            {
+                "geocoder_status": "OK",
+                "place_id": "ChIJQ6LTFpAIE2sRpuBVAui1GHM",
+                "types": [
+                    "route"
+                ]
+            },
+            {
+                "geocoder_status": "OK",
+                "place_id": "ChIJQ6LTFpAIE2sRpuBVAui1GHM",
+                "types": [
+                    "route"
+                ]
+            }
+        ],
+        "routes": [
+            {
+                "bounds": {
+                    "northeast": {
+                        "lat": -34.3940364,
+                        "lng": 150.6381309
+                    },
+                    "southwest": {
+                        "lat": -34.3967398,
+                        "lng": 150.6375728
+                    }
+                },
+                "copyrights": "Map data ©2019 Google",
+                "legs": [
+                    {
+                        "distance": {
+                            "text": "0.3 km",
+                            "value": 310
+                        },
+                        "duration": {
+                            "text": "1 min",
+                            "value": 50
+                        },
+                        "end_address": "Firetrail No 1, Avon NSW 2574, Australia",
+                        "end_location": {
+                            "lat": -34.3940364,
+                            "lng": 150.6375728
+                        },
+                        "start_address": "Firetrail No 1, Avon NSW 2574, Australia",
+                        "start_location": {
+                            "lat": -34.3967398,
+                            "lng": 150.6380738
+                        },
+                        "steps": [
+                            {
+                                "distance": {
+                                    "text": "0.3 km",
+                                    "value": 310
+                                },
+                                "duration": {
+                                    "text": "1 min",
+                                    "value": 50
+                                },
+                                "end_location": {
+                                    "lat": -34.3940364,
+                                    "lng": 150.6375728
+                                },
+                                "html_instructions": "Head <b>north</b> on <b>Firetrail No 1</b>",
+                                "polyline": {
+                                    "points": "rb}pE}nlv[gBG_CCq@@_@De@Ls@ReA`@aAb@"
+                                },
+                                "start_location": {
+                                    "lat": -34.3967398,
+                                    "lng": 150.6380738
+                                },
+                                "travel_mode": "DRIVING"
+                            }
+                        ],
+                        "traffic_speed_entry": [],
+                        "via_waypoint": []
+                    }
+                ],
+                "overview_polyline": {
+                    "points": "rb}pE}nlv[gFKqAFyA`@gCdA"
+                },
+                "summary": "Firetrail No 1",
+                "warnings": [],
+                "waypoint_order": []
+            }
+        ],
+        "status": "OK"
+    },
+    "requestUrl": "https://maps.googleapis.com/maps/api/directions/json?destination=-34.39%2C150.649&origin=-34.397%2C150.644&key=AIzaSyA7nuBXyS4XiMIcXsrMCAmlJ56oJBZg_QY",
+    "query": {
+        "destination": "-34.39,150.649",
+        "origin": "-34.397,150.644",
+        "key": "AIzaSyA7nuBXyS4XiMIcXsrMCAmlJ56oJBZg_QY"
+    }
+}
