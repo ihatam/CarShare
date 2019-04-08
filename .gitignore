@@ -71,3 +71,4 @@ node_modules
 test/server/.env.key
 
 CarSare-ceafe07ea879.json
+app/env
