@@ -10,9 +10,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 require('./app/routes/position.route')(app)
-
-DB_CONNECTION.ATLASConnection();
-
+require('./app/routes/user.route')(app)
+require('./app/routes/user-car.route')(app)
+//DB_CONNECTION.ATLASConnection();
+DB_CONNECTION.connection();
 app.get('/', (req,res) => {
     res.json({"message": "Welcome !"});
 })
