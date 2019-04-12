@@ -32,7 +32,7 @@ async function checkIfUserHasPosition(userId){
     });
 }
 async function findUserByIdAndUpdatePositionReference(userId,userPos) {
-    return USER.findByIdAndUpdate(userId,{position:userPos._id})
+    return USER.findByIdAndUpdate(userId,{position_id:userPos._id})
     .then(data =>{
         return data;
     }).catch(err =>{

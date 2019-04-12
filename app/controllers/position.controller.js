@@ -52,8 +52,8 @@ module.exports.getAll = async (req,res) => {
 module.exports.update = (req,res) => {
     POSITION.findByIdAndUpdate(req.params._id, req.body, {new: true}).then(pos => {
         if(!pos){
-            return res.send({
-                message:"User not found "+req.params._id
+            return res.status(401).send({
+                message:"Postion not found "+req.params._id
             })
         }
         res.send(pos)
