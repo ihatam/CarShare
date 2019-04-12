@@ -18,9 +18,9 @@ async function createPosition(userId){
     });
 }
 async function checkIfUserHasPosition(userId){
-    return await POSITION.findOne({userId:userId})
+    return await POSITION.find({userId:userId})
     .then(position =>{
-        if(position !== null){
+        if(position !== null && position.length >= 2){
             return {pos:position,
                 validation:true};
         }else{
@@ -31,8 +31,8 @@ async function checkIfUserHasPosition(userId){
         return new Db_Error(err,new Error().stack);
     });
 }
-async function findUserByIdAndUpdatePositionReference(userId,userPos) {
-    return USER.findByIdAndUpdate(userId,{position:userPos._id})
+async function findUserByIdAndUpdatePositionReference(userId,userPos,userDestination) {
+    return USER.findByIdAndUpdate(userId,{current_position_id:userPos._id,destination_id:userDestination})
     .then(data =>{
         return data;
     }).catch(err =>{
@@ -63,10 +63,11 @@ async function getAllUser(){
 async function createUserWithPosition(body) {
     return USER.create(body).then(async data => {
         const userPos = await createPosition(data._id);
+        const userDestination = await createPosition(data._id);
         if(userPos instanceof Db_Error){
             return userPos;
         }
-        const updatePosRef = await findUserByIdAndUpdatePositionReference(data._id,userPos);
+        const updatePosRef = await findUserByIdAndUpdatePositionReference(data._id,userPos,userDestination);
         return updatePosRef;
     }).catch(err => {
        return new Db_Error(err,new Error().stack);
