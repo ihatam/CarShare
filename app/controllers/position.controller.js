@@ -27,6 +27,9 @@ module.exports.create = (req, res) => {
 module.exports.getById = async (req,res) => {
     await POSITION.findById(req.params._id, req.body, {new: true}).then(pos => {
         console.log('returning a Position')
+        if(pos == null){
+            return res.status(400).send({message:"Position id is invalid"})
+        }
         res.send(pos)
     }).catch(err => {
         console.log('Error while fetchng Position',err)
