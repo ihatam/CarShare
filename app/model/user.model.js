@@ -17,6 +17,6 @@ const UserShcemea = mongoose.Schema({
     ],
     permis:String,
     car:[{car_id:ObjectId}],
-    position_id:ObjectId
+    position:ObjectId
 })
 module.exports = mongoose.model('carshare-user',UserShcemea,'user')
