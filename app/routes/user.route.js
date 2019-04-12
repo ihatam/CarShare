@@ -3,11 +3,11 @@ module.exports = (app) => {
     
     app.post('/user/emailCheck',CONTROLLER.verifyEmail );
 
-    app.post('/user/',CONTROLLER.createUser);
+    app.post('/user/create',CONTROLLER.createUser);
 
     app.get('/user/all',CONTROLLER.getAll)
 
-    app.get('/user/', CONTROLLER.getUser);
+    app.post('/user/', CONTROLLER.getUser);
 
-    app.get('/user/login', CONTROLLER.login);
+    app.post('/user/login', CONTROLLER.login);
 }
