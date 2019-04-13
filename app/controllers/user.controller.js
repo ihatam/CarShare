@@ -1,5 +1,7 @@
 const Db_Error = require('../error/db_error');
 const user_acces = require('../db.acces/acces_user_db')
+const jwt = require('jsonwebtoken')
+const tokenConfig = require('../tokenManager/token.config')
 module.exports.verifyEmail = async (req, res) => {
     const checkEmailAvailability = await user_acces.emailCheck(req.body.email);
     if(checkEmailAvailability instanceof Db_Error){
@@ -43,13 +45,16 @@ module.exports.login = async (req,res) => {
         return res.status(400).send(user.formatError());
     }
     if(user.password == req.body.password){
-        return res.send({user_info:user,token:true});
+        let payload ={subject:data._id}
+        let token = jwt.sign(payload,tokenConfig.secret)
+        let tokenWithBearer = `Bearer ${token}`;
+        return res.send({user_info:user,authorization:tokenWithBearer});
     }else{
         return res.status(400).send({message:"The password was invalid",err:"pasword invalid"});
     }
 }
 module.exports.getUser = async (req,res) => {
-    if(req.body.email == null || req.body.email == undefined || req.body.token !== true){
+    if(req.body.email == null || req.body.email == undefined){
         return res.status(400).send({message:"Acces denied token or email invalid",err:"Acces denied token or email invalid"});
     }
     const user = await user_acces.getUser(req.body.email);
