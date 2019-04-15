@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const UserShcemea = mongoose.Schema({
     family_name:String,
     name:String,
-    phone:Number,
+    phone:String,
     email:String,
     password:String,
     user_photo:String,
