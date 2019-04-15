@@ -45,7 +45,7 @@ module.exports.login = async (req,res) => {
         return res.status(400).send(user.formatError());
     }
     if(user.password == req.body.password){
-        let payload ={subject:data._id}
+        let payload ={subject:user._id}
         let token = jwt.sign(payload,tokenConfig.secret)
         let tokenWithBearer = `Bearer ${token}`;
         return res.send({user_info:user,authorization:tokenWithBearer});
