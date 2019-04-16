@@ -10,5 +10,7 @@ module.exports = (app) => {
 
     app.post('/user/',jwtCheck.verifyToken, CONTROLLER.getUser);
 
+    app.put('/user/drivingStatus/:_id',jwtCheck.verifyToken, CONTROLLER.updateDriverStatus);
+
     app.post('/user/login', CONTROLLER.login);
 }

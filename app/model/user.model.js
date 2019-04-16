@@ -7,6 +7,7 @@ const UserShcemea = mongoose.Schema({
     email:String,
     password:String,
     user_photo:String,
+    isDriver:Boolean,
     payment_method:[
         {
             type:String,

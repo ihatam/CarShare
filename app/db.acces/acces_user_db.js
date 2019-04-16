@@ -32,7 +32,15 @@ async function checkIfUserHasPosition(userId){
     });
 }
 async function findUserByIdAndUpdatePositionReference(userId,userPos,userDestination) {
-    return USER.findByIdAndUpdate(userId,{current_position_id:userPos._id,destination_id:userDestination})
+    return USER.findByIdAndUpdate(userId,{isDriver:false,current_position_id:userPos._id,destination_id:userDestination})
+    .then(data =>{
+        return data;
+    }).catch(err =>{
+        return new Db_Error(err,new Error().stack);
+    })
+}
+async function findUserByIdAndUpdateDriverStatus(userId,status) {
+    return USER.findByIdAndUpdate(userId,{isDriver:status})
     .then(data =>{
         return data;
     }).catch(err =>{
@@ -71,7 +79,7 @@ async function createUserWithPosition(body) {
         return updatePosRef;
     }).catch(err => {
        return new Db_Error(err,new Error().stack);
-    }); 
+    });
 }
 async function getUser(email) {
     return await USER.findOne({email:email})
@@ -87,5 +95,6 @@ module.exports = {
     createUserWithPosition:createUserWithPosition,
     emailCheck:emailCheck,
     getAllUser:getAllUser,
-    getUser:getUser
+    getUser:getUser,
+    findUserByIdAndUpdateDriverStatus:findUserByIdAndUpdateDriverStatus
 }

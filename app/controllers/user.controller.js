@@ -13,6 +13,16 @@ module.exports.verifyEmail = async (req, res) => {
     }
     return res.send({message:"Valid email",value:checkEmailAvailability});
 }
+module.exports.updateDriverStatus = async (req, res) => {
+    const userId = req.params._id;
+    const userStatus = res.body.isDriver;
+    const updateUser = await user_acces.findUserByIdAndUpdateDriverStatus(userId,userStatus);
+    if(updateUser instanceof Db_Error){
+        console.log('Error: ', updateUser.formatError());
+        return res.status(400).send(updateUser.formatError());
+    }
+    return res.send(updateUser)
+}
 module.exports.createUser = async (req,res) => {
     const { family_name, name, phone, email, password } = req.body
     const checkEmailAvailability = await user_acces.emailCheck(req.body.email);
