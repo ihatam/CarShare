@@ -11,7 +11,7 @@ module.exports.disconnect = async () =>{
 }
 module.exports.ATLASConnection = () => {
     //let url = ''
-    let url2 = "mongodb+srv://pcar:MtxfewPecGOOkzgn@pcar-9pg5q.mongodb.net/test?retryWrites=true"
+    let url2 = "hidden"
     //let url3 = ''
     connect(url2)
 }
