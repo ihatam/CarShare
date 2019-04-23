@@ -15,7 +15,7 @@ module.exports.verifyEmail = async (req, res) => {
 }
 module.exports.updateDriverStatus = async (req, res) => {
     const userId = req.params._id;
-    const userStatus = res.body.isDriver;
+    const userStatus = req.body.isDriver;
     const updateUser = await user_acces.findUserByIdAndUpdateDriverStatus(userId,userStatus);
     if(updateUser instanceof Db_Error){
         console.log('Error: ', updateUser.formatError());

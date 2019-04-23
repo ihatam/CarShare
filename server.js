@@ -12,6 +12,8 @@ app.use(bodyParser.json())
 require('./app/routes/position.route')(app)
 require('./app/routes/user.route')(app)
 require('./app/routes/user-car.route')(app)
+require('./app/routes/transit.route')(app)
+
 DB_CONNECTION.ATLASConnection();
 //DB_CONNECTION.connection();
 app.get('/', (req,res) => {
