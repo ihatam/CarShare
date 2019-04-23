@@ -50,10 +50,17 @@ module.exports.removePassagerTransit = async (req, res) => {
 }
 
 module.exports.getAll = async (res,req) =>{
-    const transit = await transit_acces.getAll()
-    if(transit instanceof Db_Error){
+    //const transit = await transit_acces.getAll()
+    TRANSIT.find().then(user => {
+        console.log('returning all USER')
+        res.send(user)
+    }).catch(err => {
+        console.log('Error while fetchng all USER',err)
+        res.status(400).send(err)
+    })
+  /**  if(transit instanceof Db_Error){
         console.log('Error: ', transit.formatError());
         return res.status(400).send(transit.formatError());
     }
-    return res.send(transit)
+    return res.send(transit)*/
 }

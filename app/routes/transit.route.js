@@ -14,7 +14,7 @@ module.exports = (app) => {
 
     /**     PUT:Body
      * req.body.status
-     * req.body.    
+     * req.body.passagerId    
      */
     app.put('/transit/status',CONTROLLER.updateWaitingStatus);
 
