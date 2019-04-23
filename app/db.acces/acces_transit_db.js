@@ -36,7 +36,7 @@ async function createTransit(driverID,driver_current_positionID,driver_destinati
 async function addPassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)
     const newPassager = {passagerId:passagerId,passagerStatus:WAITING_STATUS.WAITING}
-    return await TRANSIT.findOneAndUpdate(transit._id,{$push: {passager:newPassager}})
+    return await TRANSIT.findByIdAndUpdate(transit._id,{$push: {passager:newPassager}})
     .then(data =>{
         return data;
     }).catch(err =>{
