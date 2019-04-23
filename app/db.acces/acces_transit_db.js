@@ -40,6 +40,7 @@ async function addPassagerTransit(driverID,passagerId) {
     .then(data =>{
         return data;
     }).catch(err =>{
+        err.name = {"probelamtiq_id":transit._id}
         return new Db_Error(err,new Error().stack);
     })
 }
