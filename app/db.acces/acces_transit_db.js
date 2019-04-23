@@ -1,4 +1,5 @@
 const TRANSIT = require('../model/transit.model')
+const Db_Error = require('../error/db_error');
 const WAITING_STATUS = {
     WAITING: 'waiting',
     VALIDATED: 'validated',
@@ -52,10 +53,11 @@ async function removePassagerTransit(driverID,passagerId) {
     })
 }
 async function getAll(){
-    return await TRANSIT.find().then(tra => {
-        return tra 
+    return await TRANSIT.find().then(user => {
+        console.log('returning all USER')
+        return user
     }).catch(err => {
-        console.log('Error while fetchng all transit',err)
+        console.log('Error while fetchng all USER',err)
         return new Db_Error(err,new Error().stack);
     })
 }
