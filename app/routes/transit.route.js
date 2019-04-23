@@ -1,7 +1,11 @@
 module.exports = (app) => {
     const CONTROLLER = require('../controllers/transit.controller');    
-    /** 
-     *     const {driverID,driver_current_positionID,driver_destination_positionID} = req.body
+    /**         POST:Body
+     * 
+     *      driverID,
+     *      driver_current_positionID,
+     *      driver_destination_positionID
+     * 
      */
     app.post('/transit/',CONTROLLER.createTransit );
 
@@ -10,9 +14,9 @@ module.exports = (app) => {
 
     /**     PUT:Body
      * req.body.status
-     * req.body.passagerId
+     * req.body.    
      */
-    app.put('/transit/',CONTROLLER.updateWaitingStatus);
+    app.put('/transit/status',CONTROLLER.updateWaitingStatus);
 
     /**     POST:Body
      * req.body.passagerId
@@ -24,7 +28,7 @@ module.exports = (app) => {
      * req.body.passagerId
      * req.params._id = driverID
      */
-    app.post('/transit/passager/del/:_id',CONTROLLER.addPassagerTransit)
+    app.post('/transit/passager/del/:_id',CONTROLLER.removePassagerTransit)
 
     /** Debug route */
     app.get('/transit/getAll',CONTROLLER.getAll) 
