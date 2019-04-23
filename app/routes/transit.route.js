@@ -7,10 +7,10 @@ module.exports = (app) => {
      *      driver_destination_positionID
      * 
      */
-    app.post('/transit/',CONTROLLER.createTransit );
+    app.post('/transit/add',CONTROLLER.createTransit );
 
     // req.params._id: conducteur
-    app.get('/transit/:_id',CONTROLLER.findTransit) 
+    app.get('/transit/get/:_id',CONTROLLER.findTransit) 
 
     /**     PUT:Body
      * req.body.status
