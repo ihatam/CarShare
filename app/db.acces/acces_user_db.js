@@ -91,10 +91,21 @@ async function getUser(email) {
         return new Db_Error(err,new Error().stack)
     });
 }
+async function getUserById(id) {
+    return await USER.findById(id)
+    .then(user =>{
+        return user;
+    })
+    .catch(err => {
+        console.log('err: ', err);
+        return new Db_Error(err,new Error().stack)
+    });
+}
 module.exports = {
     createUserWithPosition:createUserWithPosition,
     emailCheck:emailCheck,
     getAllUser:getAllUser,
     getUser:getUser,
-    findUserByIdAndUpdateDriverStatus:findUserByIdAndUpdateDriverStatus
+    findUserByIdAndUpdateDriverStatus:findUserByIdAndUpdateDriverStatus,
+    getUserById:getUserById
 }

@@ -73,6 +73,17 @@ module.exports.getUser = async (req,res) => {
     }
     return res.send({user_info:user});
 }
+module.exports.getUserById = async (req,res) => {
+    if(req.params._id == null || req.params._id == undefined){
+        return res.status(400).send({message:"invalidId",err:""});
+    }
+    const user = await user_acces.getUserById(req.params._id);
+    if(user instanceof Db_Error){
+        return res.status(400).send(user.formatError());
+    }
+    return res.send({user_info:user});
+}
+
 module.exports.getAll = async (req,res) => {
     const allUser = await user_acces.getAllUser();
     if(allUser instanceof Db_Error){

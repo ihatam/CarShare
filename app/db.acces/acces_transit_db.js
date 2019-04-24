@@ -21,17 +21,29 @@ async function updateWaitingStatus(passagerId,status) {
         return new Db_Error(err,new Error().stack);
     })
 }
+async function updateTransit(driverID,driver_current_positionID,driver_destination_positionID){
+    return await TRANSIT.update({driverID:driverID},
+        {driver_current_positionID:driver_current_positionID,driver_destination_positionID:driver_destination_positionID})
+        .then(async data => {
+            return data;
+        }).catch(async err =>{return err})
+}
 async function createTransit(driverID,driver_current_positionID,driver_destination_positionID) {
     const body = {
         driverID:driverID,
         driver_current_positionID:driver_current_positionID,
         driver_destination_positionID:driver_destination_positionID
     }
-    return await TRANSIT.create(body).then(data => {
-        return data;
-    }).catch(err => {
-        return new Db_Error(err,new Error().stack);
-    });
+    const checkIfUserHasTranSit = await findTransit(driverID);
+    if(checkIfUserHasTranSit != null){
+        return checkIfUserHasTranSit;
+    }else{
+        return await TRANSIT.create(body).then(data => {
+            return data;
+        }).catch(err => {
+            return new Db_Error(err,new Error().stack);
+        });    
+    }
 }
 async function addPassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)
