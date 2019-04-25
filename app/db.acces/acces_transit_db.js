@@ -13,7 +13,7 @@ async function findTransit(driverID) {
         return new Db_Error(err,new Error().stack);
     })
 }
-async function updateWaitingStatus(driverID,passagerId,status) {
+async function updateWaitingStatus(driverID,passagerId,status,res) {
     var transit = await findTransit(driverID)
     var info
     var pass
@@ -23,20 +23,21 @@ async function updateWaitingStatus(driverID,passagerId,status) {
             pass = passager
             element.passagerStatus = status
             info = element.passagerStatus
+            dorekr = await TRANSIT.findByIdAndUpdate(transit._id,transit.passager)
+            .then(data =>{
+                return {
+                info:info,
+                transit:transit,
+                data:data,
+                passager:pass
+            };
+            }).catch(err =>{
+                err.name = {"probelamtiq_id":transit._id}
+                return new Db_Error(err,new Error().stack);
+            })
+            res.send(dorekr)            
         }
     });
-    return await TRANSIT.findByIdAndUpdate(transit._id,transit.passager)
-    .then(data =>{
-        return {
-        info:info,
-        transit:transit,
-        data:data,
-        passager:pass
-    };
-    }).catch(err =>{
-        err.name = {"probelamtiq_id":transit._id}
-        return new Db_Error(err,new Error().stack);
-    })    
     /*return await TRANSIT.update({'passager.passagerId': passagerId},
      {'$set': {'passager.$.passagerStatus': status}})
     .then(data =>{
