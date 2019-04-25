@@ -14,7 +14,7 @@ async function findTransit(driverID) {
     })
 }
 async function updateWaitingStatus(driverID,passagerId,status) {
-    var transit = await findTransit(driverID)
+    /*var transit = await findTransit(driverID)
     var info
     var pass
     return await asyncForEach(transit.passager, async (element) => {
@@ -37,14 +37,14 @@ async function updateWaitingStatus(driverID,passagerId,status) {
             err.name = {"probelamtiq_id":transit._id}
             return new Db_Error(err,new Error().stack);
         })  
-    }).catch(err=> {return err})
-    /*return await TRANSIT.update({'passager.passagerId': passagerId},
+    }).catch(err=> {return err})*/
+    return await TRANSIT.update({'passager.passagerId': passagerId},
      {'$set': {'passager.$.passagerStatus': status}})
     .then(data =>{
         return data;
     }).catch(err =>{
         return new Db_Error(err,new Error().stack);
-    })*/
+    })
 }
 async function updateTransit(driverID,driver_current_positionID,driver_destination_positionID){
     return await TRANSIT.update({driverID:driverID},
