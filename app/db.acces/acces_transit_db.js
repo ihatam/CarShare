@@ -37,7 +37,7 @@ async function updateWaitingStatus(driverID,passagerId,status) {
             err.name = {"probelamtiq_id":transit._id}
             return new Db_Error(err,new Error().stack);
         })  
-    })
+    }).catch(err=> {return err})
     /*return await TRANSIT.update({'passager.passagerId': passagerId},
      {'$set': {'passager.$.passagerStatus': status}})
     .then(data =>{
