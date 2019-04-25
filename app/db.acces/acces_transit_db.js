@@ -89,7 +89,7 @@ async function addPassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)
     const newPassager = {passagerId:passagerId,passagerStatus:WAITING_STATUS.WAITING}
     const isPassager = await chekIfTransitHavePassenger(transit,passagerId)
-    if(isPassager){
+    if(!isPassager){
         return await TRANSIT.findByIdAndUpdate(transit._id,{$push: {passager:newPassager}})
         .then(data =>{
             return data;
