@@ -13,13 +13,28 @@ async function findTransit(driverID) {
         return new Db_Error(err,new Error().stack);
     })
 }
-async function updateWaitingStatus(passagerId,status) {
-    return await TRANSIT.update({'passager.passagerId': passagerId}, {'$set': {'passager.$.passagerStatus': status}})
+async function updateWaitingStatus(driverID,passagerId,status) {
+    const transit = await findTransit(driverID)
+    await asyncForEach(transit.passager, async (element) => {
+        let passager = element.passagerId;
+        if(passager == passagerId){
+            element.passagerStatus = status
+        }
+    });
+    return await TRANSIT.findByIdAndUpdate(transit._id,transit)
+    .then(data =>{
+        return data;
+    }).catch(err =>{
+        err.name = {"probelamtiq_id":transit._id}
+        return new Db_Error(err,new Error().stack);
+    })    
+    /*return await TRANSIT.update({'passager.passagerId': passagerId},
+     {'$set': {'passager.$.passagerStatus': status}})
     .then(data =>{
         return data;
     }).catch(err =>{
         return new Db_Error(err,new Error().stack);
-    })
+    })*/
 }
 async function updateTransit(driverID,driver_current_positionID,driver_destination_positionID){
     return await TRANSIT.update({driverID:driverID},
