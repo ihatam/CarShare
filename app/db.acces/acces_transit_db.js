@@ -21,7 +21,7 @@ async function updateWaitingStatus(driverID,passagerId,status) {
             element.passagerStatus = status
         }
     });
-    return await TRANSIT.findByIdAndUpdate(transit._id,transit)
+    return await TRANSIT.findByIdAndUpdate(transit._id,transit.passager)
     .then(data =>{
         return data;
     }).catch(err =>{
