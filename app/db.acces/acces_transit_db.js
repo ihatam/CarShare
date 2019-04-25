@@ -14,11 +14,13 @@ async function findTransit(driverID) {
     })
 }
 async function updateWaitingStatus(driverID,passagerId,status) {
-    const transit = await findTransit(driverID)
+    var transit = await findTransit(driverID)
+    var info
     await asyncForEach(transit.passager, async (element) => {
         let passager = element.passagerId;
         if(passager == passagerId){
             element.passagerStatus = status
+            info = element.passagerStatus
         }
     });
     return await TRANSIT.findByIdAndUpdate(transit._id,transit.passager)
