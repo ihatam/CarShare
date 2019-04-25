@@ -45,16 +45,38 @@ async function createTransit(driverID,driver_current_positionID,driver_destinati
         });    
     }
 }
+async function chekIfTransitHavePassenger(transit,passagerId){
+    var isPassager = false;
+    if(transit.passager.length <1){
+        await asyncForEach(transit.passager, async (element) => {
+            let passager = element.passagerId;
+            if(passager == passagerId){
+                isPassager = true
+            }
+            driverWithPosition.push(driverUpdate)
+        });
+        return isPassager
+    }else{
+        return isPassager
+    }
+
+}
 async function addPassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)
     const newPassager = {passagerId:passagerId,passagerStatus:WAITING_STATUS.WAITING}
-    return await TRANSIT.findByIdAndUpdate(transit._id,{$push: {passager:newPassager}})
-    .then(data =>{
-        return data;
-    }).catch(err =>{
-        err.name = {"probelamtiq_id":transit._id}
-        return new Db_Error(err,new Error().stack);
-    })
+    const isPassager = await chekIfTransitHavePassenger(transit,passagerId)
+    if(isPassager){
+        return await TRANSIT.findByIdAndUpdate(transit._id,{$push: {passager:newPassager}})
+        .then(data =>{
+            return data;
+        }).catch(err =>{
+            err.name = {"probelamtiq_id":transit._id}
+            return new Db_Error(err,new Error().stack);
+        })    
+    }else{
+        let dataRandom = {ok:1};
+        return dataRandom;
+    }
 }
 async function removePassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)
@@ -64,6 +86,11 @@ async function removePassagerTransit(driverID,passagerId) {
     }).catch(err =>{
         return new Db_Error(err,new Error().stack);
     })
+}
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
 }
 async function getAll(){
     return await TRANSIT.find().then(user => {
