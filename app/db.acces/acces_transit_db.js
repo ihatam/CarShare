@@ -16,16 +16,23 @@ async function findTransit(driverID) {
 async function updateWaitingStatus(driverID,passagerId,status) {
     var transit = await findTransit(driverID)
     var info
+    var pass
     await asyncForEach(transit.passager, async (element) => {
         let passager = element.passagerId;
         if(passager == passagerId){
+            pass = passager
             element.passagerStatus = status
             info = element.passagerStatus
         }
     });
     return await TRANSIT.findByIdAndUpdate(transit._id,transit.passager)
     .then(data =>{
-        return {transit};
+        return {
+        info:info,
+        transit:transit,
+        data:data,
+        passager:pass
+    };
     }).catch(err =>{
         err.name = {"probelamtiq_id":transit._id}
         return new Db_Error(err,new Error().stack);
