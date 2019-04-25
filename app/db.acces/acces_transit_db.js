@@ -23,7 +23,7 @@ async function updateWaitingStatus(driverID,passagerId,status) {
     });
     return await TRANSIT.findByIdAndUpdate(transit._id,transit.passager)
     .then(data =>{
-        return data;
+        return {transit};
     }).catch(err =>{
         err.name = {"probelamtiq_id":transit._id}
         return new Db_Error(err,new Error().stack);
