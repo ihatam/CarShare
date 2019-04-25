@@ -74,7 +74,6 @@ async function chekIfTransitHavePassenger(transit,passagerId){
     }else{
         return isPassager
     }
-
 }
 async function addPassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)

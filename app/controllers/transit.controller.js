@@ -12,7 +12,8 @@ module.exports.findTransit = async (req, res) => {
 module.exports.updateWaitingStatus = async (req, res) => {
     const passagerId = req.body.passagerId
     const status = req.body.status
-    const updateTransit = await transit_acces.updateWaitingStatus(passagerId,status);
+    const driverID = req.body.driverID
+    const updateTransit = await transit_acces.updateWaitingStatus(driverID,passagerId,status);
     if(updateTransit instanceof Db_Error){
         console.log('Error: ', updateTransit.formatError());
         return res.status(400).send(updateTransit.formatError());
