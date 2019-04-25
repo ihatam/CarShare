@@ -38,13 +38,16 @@ async function updateWaitingStatus(driverID,passagerId,status) {
             return new Db_Error(err,new Error().stack);
         })  
     }).catch(err=> {return err})*/
-    return await TRANSIT.update({'passager.passagerId': passagerId},
+    const remove = await removePassagerTransit(driverID,passagerId);
+    const add = await addPassagerTransitWithStatus(driverID,passagerId,status)
+    return add;
+    /*return await TRANSIT.update({'passager.passagerId': passagerId},
      {'$set': {'passager.$.passagerStatus': status}})
     .then(data =>{
         return data;
     }).catch(err =>{
         return new Db_Error(err,new Error().stack);
-    })
+    })*/
 }
 async function updateTransit(driverID,driver_current_positionID,driver_destination_positionID){
     return await TRANSIT.update({driverID:driverID},
@@ -85,6 +88,24 @@ async function chekIfTransitHavePassenger(transit,passagerId){
         return isPassager
     }
 }
+async function addPassagerTransitWithStatus(driverID,passagerId,status) {
+    const transit = await findTransit(driverID)
+    const newPassager = {passagerId:passagerId,passagerStatus:status}
+    const isPassager = await chekIfTransitHavePassenger(transit,passagerId)
+    if(!isPassager){
+        return await TRANSIT.findByIdAndUpdate(transit._id,{$push: {passager:newPassager}})
+        .then(data =>{
+            return data;
+        }).catch(err =>{
+            err.name = {"probelamtiq_id":transit._id}
+            return new Db_Error(err,new Error().stack);
+        })    
+    }else{
+        let dataRandom = {ok:1};
+        return dataRandom;
+    }
+}
+
 async function addPassagerTransit(driverID,passagerId) {
     const transit = await findTransit(driverID)
     const newPassager = {passagerId:passagerId,passagerStatus:WAITING_STATUS.WAITING}
