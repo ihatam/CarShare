@@ -38,9 +38,12 @@ async function updateWaitingStatus(driverID,passagerId,status) {
             return new Db_Error(err,new Error().stack);
         })  
     }).catch(err=> {return err})*/
-    const remove = await removePassagerTransit(driverID,passagerId);
-    const add = await addPassagerTransitWithStatus(driverID,passagerId,status)
-    return add;
+    return await removePassagerTransit(driverID,passagerId).then(data => {
+        return  await addPassagerTransitWithStatus(driverID,passagerId,status).then(data=>{
+            return data
+        }).catch(err=>{return err})
+    }).catch(err =>{return err});
+    //return add;
     /*return await TRANSIT.update({'passager.passagerId': passagerId},
      {'$set': {'passager.$.passagerStatus': status}})
     .then(data =>{
