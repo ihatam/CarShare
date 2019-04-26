@@ -1,5 +1,6 @@
 module.exports = (app) => {
     const CONTROLLER = require('../controllers/position.controller');
+    const jwtCheck = require('../tokenManager/tokenChecker');
 
   //  app.post('/position/',CONTROLLER.insertMany );
     
@@ -7,7 +8,7 @@ module.exports = (app) => {
 
     app.get('/position/',CONTROLLER.getAll)
 
-    app.get('/position/:_id',CONTROLLER.getById)
+    app.get('/position/:_id',jwtCheck.verifyToken,CONTROLLER.getById)
 
-    app.put('/position/:_id', CONTROLLER.update);
+    app.put('/position/:_id',jwtCheck.verifyToken, CONTROLLER.update);
 }

@@ -11,7 +11,7 @@ module.exports.disconnect = async () =>{
 }
 module.exports.ATLASConnection = () => {
     //let url = ''
-    let url2 = process.env.url2
+    let url2 = "mongodb+srv://pcar:MtxfewPecGOOkzgn@pcar-9pg5q.mongodb.net/test?retryWrites=true"
     //let url3 = ''
     connect(url2)
 }
@@ -19,6 +19,7 @@ module.exports.connection = () => {
     console.log('process.env.MONGO_HOST: ', process.env.MONGO_HOST);
     connect(process.env.MONGO_HOST)
 }
+
 function connect(url){
     mongoose.Promise = global.Promise;
     mongoose.connect(url,{
